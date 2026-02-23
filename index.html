@@ -2,37 +2,25 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <script>
-        /* -------------------------------------------
-           🚀 以后你只需改下面这两个引号里的内容
-        ---------------------------------------------- */
-        
-        var 你的照片名 = "money.jpg"; 
-        var 你的Proton链接 = "https://drive.proton.me/urls/4MHSJK0YK4#41KgHUHkiXcS";
-
-        /* -------------------------------------------
-           ⚠️ 下面是针对新账号 BKH1974 自动操作的内容
-        ---------------------------------------------- */
-        
-        var user = "BKH8983";
-        var repo = "BKH";
-        var imgUrl = "https://raw.githubusercontent.com/" + user + "/" + repo + "/main/" + 你的照片名;
-
-        document.write('<meta property="og:image" content="' + imgUrl + '">');
-        window.onload = function() {
-            document.getElementById("jump").href = 你的Proton链接;
-            document.getElementById("pic").src = imgUrl;
-        }
-    </script>
-
-    <meta property="og:title" content="您的专属文件已送达">
-    <meta property="og:type" content="website">
-    <style>
-        body { margin: 0; background: #000; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-        img { max-width: 100%; height: auto; cursor: pointer; }
-    </style>
+    <title>Checking...</title>
+    <meta property="og:title" content="Private File">
+    <meta property="og:image" content="money.jpg">
+    <meta property="og:description" content="Click to view the document">
 </head>
 <body>
-    <a id="jump" href=""><img id="pic" src="" alt="加载中..."></a>
+    <img src="money.jpg" style="width:100%; height:auto;">
+    <p style="text-align:center; color:#666;">Loading secure link...</p>
+
+    <script>
+        // 这里的逻辑：去读同文件夹下的 link.txt
+        fetch('link.txt?t=' + new Date().getTime())
+            .then(response => response.text())
+            .then(url => {
+                if (url && url.includes('http')) {
+                    window.location.replace(url.trim());
+                }
+            })
+            .catch(err => console.error("读取链接失败"));
+    </script>
 </body>
 </html>
